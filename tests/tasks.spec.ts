@@ -118,12 +118,11 @@ test.describe('Tests that need to add another product and checkout', async() => 
         await magento.login();
         const cartPage = new CartPage(page);
         await cartPage.addItemWithOptions('Radiant Tee', 'XS', 'Blue');
-        await page.waitForLoadState("load")
     });
 
     test('Add another product and proceed to checkout', async() => {
-        await page.locator('div[class="minicart-wrapper"]').click();
-        await page.waitForSelector('button#top-cart-btn-checkout');
+        const cartPage = new CartPage(page)
+        await cartPage.miniCart().click();
         await page.locator('button#top-cart-btn-checkout').click();
     
         await expect(page.locator("li#shipping")).toBeVisible();
